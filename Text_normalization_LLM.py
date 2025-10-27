@@ -1,6 +1,6 @@
 from groq import Groq
 import pandas as pd
-client= Groq(api_key="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")
+client= Groq(api_key="")
 
 def split_into_paragraphs(doc):
     prompt = f"""
@@ -46,8 +46,6 @@ Document:
 
     return response.choices[0].message.content
 
-
-
 val=pd.read_csv('val_para.csv')
 rows = []
 for _, row in val.iterrows():
@@ -57,5 +55,4 @@ for _, row in val.iterrows():
     for i, c in enumerate(para):
         rows.append({"doc_id": doc_id, "para_id": i, "para_text": doc, "summary":c})
 
-valsumm_df = pd.DataFrame(rows)
-valsumm_df.to_csv('valsumm_df.csv',index=False)
+
