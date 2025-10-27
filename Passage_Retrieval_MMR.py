@@ -126,4 +126,5 @@ def get_chunks_with_mmr(doc, gold_summary,model_name='sentence-transformers/bert
         if len(merged_summary.split()) >= min_summary_words:
             final_chunks.append(" ".join([doc_sents[i] for i in idx_list]))
             final_summaries.append(merged_summary)
+
     return final_chunks, final_summaries
