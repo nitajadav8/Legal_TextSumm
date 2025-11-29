@@ -1,6 +1,6 @@
 from groq import Groq
 import pandas as pd
-client= Groq(api_key="")
+client= Groq(api_key="") """api key here"""
 
 def split_into_paragraphs(doc):
     prompt = f"""
