@@ -32,17 +32,21 @@ python Text_normalization_LLM.py --input raw_para.csv --output final_para.csv
 Passage Retrieval
 
 ```bash
+#using MCS
+
 #using DPR
 python Passage_retrieval_SummarySentdpr.py \
     --judgment train/nromalized_para.jsonl \
     --summary train/train_ref_summ.jsonl \
     --output dpr3_train_data_4.jsonl
 #using MMR
-python Passage_retrieval_SummarySentdpr.py \
+python Passage_Retrieval_MMR.py \
     --judgment train/nromalized_para.jsonl \
     --summary train/train_ref_summ.jsonl \
     --output mmr_train_data_4.jsonl
+
 ```
+
 
 
 
