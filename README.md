@@ -57,14 +57,16 @@ python train/fine_lpmcs.py \
     --model nsi319/legal-pegasus
 
 #change the input train file and model to use different fine tuning experiments
-Generating Summary with fine-tuned model
 ```
+Generating Summary with fine-tuned model
+
 ```bash
 python train/Generate_Summary.py \
     --input test_data.csv \
     --output output.jsonl \
     --model_dir ./pega_model
 ```
+
 
 
 
