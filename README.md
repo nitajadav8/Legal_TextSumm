@@ -51,7 +51,7 @@ python Passage_Retrieval_MMR.py \
 ```
 Fine Tuning
 ```bash
-python fine_lpmcs.py \
+python train/fine_lpmcs.py \
     --input TrainFD_LPMCS_512.csv \
     --output ./output_model/ \
     --model nsi319/legal-pegasus
@@ -59,11 +59,12 @@ python fine_lpmcs.py \
 #change the input train file and model to use different fine tuning experiments
 Generating Summary with fine-tuned model
 ```bash
-python Generate_Summary.py \
+python train/Generate_Summary.py \
     --input test_data.csv \
     --output output.jsonl \
     --model_dir ./pega_model
 ```
+
 
 
 
