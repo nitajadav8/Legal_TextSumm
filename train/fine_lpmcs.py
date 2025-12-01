@@ -3,6 +3,8 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import os
 import pandas as pd
+import argparse
+
 
 class PegasusDataset(torch.utils.data.Dataset):
     def __init__(self, encodings, labels):
@@ -98,14 +100,50 @@ def prepare_fine_tuning(model_name, tokenizer, train_dataset, val_dataset=None, 
 
   return trainer
 
-df=pd.read_csv("TrainFD_LPMCS_512.csv")
-train_texts, train_labels = (list(df['data'])), (list(df['summary']))
-  
-model_name = 'nsi319/legal-pegasus'
+parser = argparse.ArgumentParser(description="Fine-tune summarization model.")
+
+parser.add_argument(
+    "--input",
+    required=True,
+    help="Path to input CSV file (e.g., TrainFD_LPMCS_512.csv)"
+)
+
+parser.add_argument(
+    "--output",
+    required=True,
+    help="Output directory to save the fine-tuned model"
+)
+
+parser.add_argument(
+    "--model",
+    default="nsi319/legal-pegasus",
+    help="Base model name (default: nsi319/legal-pegasus)"
+)
+
+args = parser.parse_args()
+
+# ----------------------------
+# Load dataset
+# ----------------------------
+df = pd.read_csv(args.input)
+train_texts = list(df["data"])
+train_labels = list(df["summary"])
+
+model_name = args.model
+
+# ----------------------------
+# Prepare data + training
+# ----------------------------
 train_dataset, _, _, tokenizer = prepare_data(model_name, train_texts, train_labels)
 trainer = prepare_fine_tuning(model_name, tokenizer, train_dataset)
+
 trainer.train()
 
-if not os.path.exists('./ouput_model/'):
-    os.makedirs('./ouput_model/')
-trainer.model.save_pretrained("./ouput_model/")
+# ----------------------------
+# Save model
+# ----------------------------
+if not os.path.exists(args.output):
+    os.makedirs(args.output)
+
+trainer.model.save_pretrained(args.output)
+print(f"Model saved to {args.output}")
