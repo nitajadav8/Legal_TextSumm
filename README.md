@@ -29,11 +29,20 @@ To Normalize raw legal document incorporating legal domain knowledge using LLM
 ```bash
 python Text_normalization_LLM.py --input raw_para.csv --output final_para.csv
 ```
-Passage Retrieval for single summary sentence using DPR
+Passage Retrieval
+
 ```bash
+#using DPR
 python Passage_retrieval_SummarySentdpr.py \
     --judgment train/nromalized_para.jsonl \
     --summary train/train_ref_summ.jsonl \
     --output dpr3_train_data_4.jsonl
+#using MMR
+python Passage_retrieval_SummarySentdpr.py \
+    --judgment train/nromalized_para.jsonl \
+    --summary train/train_ref_summ.jsonl \
+    --output mmr_train_data_4.jsonl
 ```
+
+
 
