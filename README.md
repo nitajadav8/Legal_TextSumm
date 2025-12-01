@@ -33,6 +33,9 @@ Passage Retrieval
 
 ```bash
 #using MCS
+python text_processing.py\
+    --input ./dataset/train/train_judg.jsonl \
+    --output TrainFD_LPMCS_512.csv
 
 #using DPR
 python Passage_retrieval_SummarySentdpr.py \
@@ -46,6 +49,22 @@ python Passage_Retrieval_MMR.py \
     --output mmr_train_data_4.jsonl
 
 ```
+Fine Tuning
+```bash
+python fine_lpmcs.py \
+    --input TrainFD_LPMCS_512.csv \
+    --output ./output_model/ \
+    --model nsi319/legal-pegasus
+```
+#change the input train file and model to use different fine tuning experiments
+Generating Summary with fine-tuned model
+```bash
+python Generate_Summary.py \
+    --input test_data.csv \
+    --output output.jsonl \
+    --model_dir ./pega_model
+```
+
 
 
 
