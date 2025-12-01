@@ -18,8 +18,22 @@ Download the spaCy English model:
 ```bash
 python -m spacy download en_core_web_sm
 ```
+## How to Run the Code
 
+To get the summary using LLM models
+```bash
+python Doc_Summary_LLM.py --input val_para.csv --output summaries.csv
+```
+To Normalize raw legal document incorporating legal domain knowledge using LLM
 
-
-
+```bash
+python Text_normalization_LLM.py --input raw_para.csv --output final_para.csv
+```
+Passage Retrieval for single summary sentence using DPR
+```bash
+python Passage_retrieval_SummarySentdpr.py \
+    --judgment train/nromalized_para.jsonl \
+    --summary train/train_ref_summ.jsonl \
+    --output dpr3_train_data_4.jsonl
+```
 
