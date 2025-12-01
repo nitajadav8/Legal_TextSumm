@@ -1,5 +1,6 @@
 from groq import Groq
 import pandas as pd
+import argparse
 client= Groq(api_key="") """api key here"""
 
 def split_into_paragraphs(doc):
@@ -46,13 +47,32 @@ Document:
 
     return response.choices[0].message.content
 
-val=pd.read_csv('val_para.csv')
-rows = []
-for _, row in val.iterrows():
-    doc_id = row["doc_id"]
-    doc=row["para_text"]
-    para = summarize(doc)
-    for i, c in enumerate(para):
-        rows.append({"doc_id": doc_id, "para_id": i, "para_text": doc, "summary":c})
+def main():
+    parser = argparse.ArgumentParser(description="Summarize paragraph CSV file.")
+    parser.add_argument("--input", required=True, help="Path to input CSV ")
+    parser.add_argument("--output", required=True, help="Path to output CSV")
+    args = parser.parse_args()
+
+    val = pd.read_csv(args.input)
+
+    rows = []
+    for _, row in val.iterrows():
+        doc_id = row["doc_id"]
+        doc = row["para_text"]
+        summaries = summarize(doc)
+
+        for i, s in enumerate(summaries):
+            rows.append({
+                "doc_id": doc_id,
+                "para_id": i,
+                "para_text": doc,
+                "summary": s
+            })
+
+    out_df = pd.DataFrame(rows)
+    out_df.to_csv(args.output, index=False)
+
+if __name__ == "__main__":
+    main()
 
 
