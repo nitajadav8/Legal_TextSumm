@@ -70,7 +70,10 @@ def main():
             })
 
     out_df = pd.DataFrame(rows)
-    out_df.to_csv(args.output, index=False)
+
+    merged = out_df.groupby("doc_id")["summary"].apply(list).reset_index()
+
+    merged.to_csv(args.output, index=False)
 
 if __name__ == "__main__":
     main()
