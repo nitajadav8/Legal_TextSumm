@@ -11,6 +11,7 @@ Install core libraries:
 ```bash
 pip install transformers pandas tqdm
 pip install sentence-transformers
+pip install sentencepiece
 pip install spacy
 pip install bitsandbytes
 ```
@@ -66,6 +67,7 @@ python train/Generate_Summary.py \
     --output output.jsonl \
     --model_dir ./pega_model
 ```
+
 
 
 
